@@ -2,7 +2,9 @@ package com.example.albumbrazil.adapters;
 
 import com.example.albumbrazil.MainActivity;
 import com.example.albumbrazil.R;
-import com.example.albumbrazil.models.BitMapHelper;
+import com.example.albumbrazil.helpers.*;
+import com.example.albumbrazil.helpers.BitmapWorkerTask.AsyncDrawable;
+
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -63,11 +65,21 @@ public class ImageAdapter extends BaseAdapter{
 			mImageView = (ImageView) convertView;
 		}
 		
-			mImageView.setImageBitmap(
-					BitMapHelper.decodeSampledBitmapFromResource(mContext, res, position, imgViewWidth, imgViewHeight));
-		
+//			mImageView.setImageBitmap(
+//					BitMapHelper.decodeSampledBitmapFromResource(mContext, res, position, imgViewWidth, imgViewHeight));
+//		
+		BitmapWorkerTask task = new BitmapWorkerTask(mImageView, res, imgViewWidth, imgViewHeight, mContext);
+		task.execute(position);
 		return mImageView;
 	}
+	
+	
+//	public void loadBitmap(ImageView imageView, int resId, int imgViewWidth,int imgViewHeight ){
+//		final BitmapWorkerTask task = 
+//				new BitmapWorkerTask(imageView, res, imgViewWidth, imgViewHeight, mContext);
+//		final AsyncDrawable asyncDrawable = new AsyncDrawable(res, bitmap, bitmapWorkerTask)
+//		
+//	}
 
 
 }

@@ -1,10 +1,14 @@
-package com.example.albumbrazil.models;
+package com.example.albumbrazil.helpers;
 
-import android.app.Activity;
+import java.lang.ref.WeakReference;
+
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.widget.ImageView;
 
 /**
  * 
@@ -87,3 +91,6 @@ public  class BitMapHelper {
 			
 		}
 }
+
+
+
