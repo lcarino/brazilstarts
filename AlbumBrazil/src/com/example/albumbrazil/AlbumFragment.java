@@ -45,7 +45,7 @@ public class AlbumFragment extends Fragment {
 		rootView = inflater.inflate(R.layout.fragment_album, container,false);
 		
 		GridView gv = (GridView) rootView.findViewById(R.id.gridView);
-		gv.setAdapter(new ImageAdapter(mContext));
+		gv.setAdapter(new ImageAdapter(mContext,getActivity().getResources()));
 		
 		
 		gv.setOnItemClickListener(new OnItemClickListener() {
