@@ -83,7 +83,9 @@ public class Album implements Serializable {
 		return catalogo;
 	}
 	
-	
+	public void shit(String s){
+		System.out.println(s);
+	}
 	
 	
 	
