@@ -10,7 +10,15 @@ public class Album implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Estampa> estampasPegadas; 
+	private ArrayList<Estampa> estampasPegadas;
+	private ArrayList<Integer> misEstampas = new ArrayList<Integer>(){{ 
+				add(1);
+				add(2);
+				add(5);
+				add(15);
+				add(30);
+				add(31);
+				}};
 	private HashMap<Integer, Integer> repetidas; //id,numero de veces repetida con put lo actualizas put(id, get(id)+1)
 	public static HashMap<Integer, String> catalogo = new HashMap<Integer, String>(){{
 		put(1,"Casillas");
@@ -83,10 +91,14 @@ public class Album implements Serializable {
 		return catalogo;
 	}
 	
+	public void shit(String s){
+		System.out.println(s);
+	}
 	
 	
-	
-	
+	public ArrayList<Integer> getMisEstampas(){
+		return misEstampas;
+	}
 	
 
 	

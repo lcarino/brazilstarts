@@ -109,20 +109,11 @@ public class CompraSobreFragment extends Fragment implements OnClickListener,Ani
 			Usuario usuario= new Usuario(mContext);
 			//usuario.guardarAlbum();
 			Album album;
-			try {
-				album = usuario.abrirAlbum();
-				//HashMap<Integer, String> catalogo=album.getCatalogo();
-				for(String identificador : sobre)
-					compra.add(getResources().getIdentifier("e"+identificador, "drawable",
-							mContext.getPackageName())); 
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			album = usuario.abrirAlbum();
+			//HashMap<Integer, String> catalogo=album.getCatalogo();
+			for(String identificador : sobre)
+				compra.add(getResources().getIdentifier("e"+identificador, "drawable",
+						mContext.getPackageName()));
 			
 			
 			
