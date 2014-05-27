@@ -21,7 +21,7 @@ public class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap>{
 	
 	//creamos una referencia debil a nuestro image view
 	private final WeakReference<ImageView> imageViewReference;
-	private int data = 0;
+	public int data = 0;
 	private int reqWidth;
 	private int reqHeight;
 	private Resources res;
@@ -48,6 +48,11 @@ public class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap>{
 	//una competada la decodificacion, verificamos si el ImageView sigue por disponible
 	@Override
 	protected void onPostExecute(Bitmap bitmap){
+		
+		if(isCancelled()){
+			bitmap = null;
+		}
+		
 		if (imageViewReference != null && bitmap != null) {
             final ImageView imageView = imageViewReference.get();
             if (imageView != null) {

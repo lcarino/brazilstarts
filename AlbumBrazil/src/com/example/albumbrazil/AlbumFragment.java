@@ -1,6 +1,7 @@
 package com.example.albumbrazil;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.example.albumbrazil.adapters.ImageAdapter;
 
@@ -27,14 +28,18 @@ public class AlbumFragment extends Fragment {
 	private View rootView;
 	private Context mContext;
 	private Bundle bundle;
-	
+	private Bundle myBundle;
+	public Album albumOp;
 
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		bundle = new Bundle();
+		
 		mContext = getActivity().getApplicationContext();
+		myBundle =  getArguments();
+		Log.d("DEBUG EN ALBUM FRAGMENT",myBundle.toString());
+		//Toast.makeText(mContext, albumOp.toString(), Toast.LENGTH_LONG).show();
 		super.onCreate(savedInstanceState);
 	}
 
@@ -44,9 +49,13 @@ public class AlbumFragment extends Fragment {
 		// TODO Auto-generated method stub
 		rootView = inflater.inflate(R.layout.fragment_album, container,false);
 		
-		GridView gv = (GridView) rootView.findViewById(R.id.gridView);
-		gv.setAdapter(new ImageAdapter(mContext,getActivity().getResources()));
+		//recupera el album del bundle
+		Album albumOpened = (Album)myBundle.getSerializable("albumOpened");
 		
+		
+		GridView gv = (GridView) rootView.findViewById(R.id.gridView);
+		gv.setAdapter(new ImageAdapter(mContext,getActivity().getResources(),albumOpened));
+		//gv.setAdapter(new ImageAdapter(mContext,getActivity().getResources()));
 		
 		gv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -67,26 +76,24 @@ public class AlbumFragment extends Fragment {
 
 		});
 		
-		Album a = null;
-		
-		Usuario u = new Usuario(mContext);
-		u.guardarAlbum();
-		try {
-			a = u.abrirAlbum();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("IOException");
-		}
-		
-		String nombre = a.catalogo.get(1);
-
-		//Toast.makeText(mContext, "**"+nombre, Toast.LENGTH_LONG).show();
-		
+//		Album a = null;
+//		
+//		Usuario u = new Usuario(mContext);
+//		//u.guardarAlbum();
+//	
+//			a = u.abrirAlbum();
+//			
+//		
+//		
+//		ArrayList<Integer> al = a.getMisEstampas();
+//
+//		Toast.makeText(mContext, "**"+al.size(), Toast.LENGTH_LONG).show();
+//		
 		return rootView;
+	}
+	
+	public void setAlbum(Album a){
+		albumOp = a;
 	}
 	
 	

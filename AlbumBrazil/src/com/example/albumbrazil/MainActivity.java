@@ -1,5 +1,10 @@
 package com.example.albumbrazil;
 
+import java.util.ArrayList;
+
+import com.example.albumbrazil.models.Album;
+import com.example.albumbrazil.models.Usuario;
+
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -8,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +23,7 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -32,6 +39,9 @@ public class MainActivity extends ActionBarActivity implements
 	 * {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
+	public Album albumOpened;
+	public Usuario usuario;
+	public Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +55,30 @@ public class MainActivity extends ActionBarActivity implements
 		// Set up the drawer. using (fragmentid, drawer layout) 
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		
+		
+//		
 	}
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
+		
+		//abrimos el archivo
+				usuario = new Usuario(getApplicationContext());
+				albumOpened = usuario.abrirAlbum();  
+				Log.d("DEBUG",albumOpened.toString());
+				Log.d("DEBUG",String.valueOf(albumOpened.getMisEstampas().size()));
+				
+		
 		// update the main content by replacing fragments
 		if(position == 0){
 			FragmentManager fm = getSupportFragmentManager();
-			fm.beginTransaction().replace(R.id.container, new AlbumFragment()).commit();
+			//se crea la instacia del fragment y se agrega el bundle
+			AlbumFragment albumFrag = new AlbumFragment();
+			b  = new Bundle();
+			b.putSerializable("albumOpened", albumOpened);
+			albumFrag.setArguments(b);
+			fm.beginTransaction().replace(R.id.container, albumFrag).commit();
 		}else{
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		fragmentManager
