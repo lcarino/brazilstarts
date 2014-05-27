@@ -1,5 +1,6 @@
 package com.example.albumbrazil.models;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,7 +24,7 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static Album album = new Album();
+	public static Album album = new Album();
 	public static Context mContext;
 	
 	public Usuario(Context mContex){
@@ -34,12 +35,7 @@ public class Usuario implements Serializable {
 		
 		
         try {
-
-//        	ObjectOutput out = new ObjectOutputStream(new FileOutputStream("albumGuardaDo.ser")); 
-//            out.writeObject(album); // 
-//            out.close();
-        	
-        	FileOutputStream fos = mContext.openFileOutput("albumguardado", mContext.MODE_PRIVATE);
+        	FileOutputStream fos = mContext.openFileOutput("albumguardado", mContext.MODE_PRIVATE); //Abre un archivo provado asociado con el contexto de la aplicacion. Si el archivo lo existe lo crea
         	ObjectOutputStream os = new ObjectOutputStream(fos);
         	os.writeObject(album);
 
@@ -53,15 +49,36 @@ public class Usuario implements Serializable {
 
 		
 	
+	/*
+	 * Abre el archivo asociado con la aplicacion y en caso de que no exista
+	 * lo crea.
+	 */
 	
-	
-	public  Album abrirAlbum() throws IOException, ClassNotFoundException{
-		FileInputStream fis = mContext.openFileInput("albumguardado");
-        ObjectInputStream is = new ObjectInputStream(fis);
-
-        album = (Album) is.readObject();
-        is.close();
-        
+	public  Album abrirAlbum(){
+		File file;
+		FileInputStream fis = null;
+		FileOutputStream fos;
+		try{
+			file = mContext.getFileStreamPath("albumguardado");
+			
+		if(!file.exists()){
+			Log.d("DEBUGER","El archivo no existe");
+			guardarAlbum();	
+		}
+		
+		fis  = mContext.openFileInput("albumguardado");
+		ObjectInputStream is = new ObjectInputStream(fis);
+		album = (Album) is.readObject();
+    	is.close();
+		
+		
+		}catch(Exception e){
+			Log.d("DEBUGER","Excepcion lanzada en la apertura del archivo");
+			e.getClass();
+			e.getMessage();
+			e.printStackTrace();
+			
+		}
 		return album;
 	}
 	
@@ -69,5 +86,8 @@ public class Usuario implements Serializable {
 	public Album getAlbum(){
 		return album;
 	}
+	
+	
+	
 
 }
