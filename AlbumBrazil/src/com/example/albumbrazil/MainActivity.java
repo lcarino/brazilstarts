@@ -53,12 +53,19 @@ public class MainActivity extends ActionBarActivity implements
 		if(position == 0){
 			FragmentManager fm = getSupportFragmentManager();
 			fm.beginTransaction().replace(R.id.container, new AlbumFragment()).commit();
+		}else if(position==1){
+			
+			FragmentManager fm = getSupportFragmentManager();
+			fm.beginTransaction().replace(R.id.container, new CompraSobreFragment()).commit();
+		
 		}else{
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager
-				.beginTransaction()
-				.replace(R.id.container,
-						PlaceholderFragment.newInstance(position + 1)).commit();
+			
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			fragmentManager
+					.beginTransaction()
+					.replace(R.id.container,
+							PlaceholderFragment.newInstance(position + 1)).commit();	
+			
 		}
 	}
 

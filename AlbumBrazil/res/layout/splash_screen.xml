@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.albumbrazil.MainActivity$PlaceholderFragment" >
+
+    <ImageView
+        android:id="@+id/brazilBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/splash_things" />
+
+    <TextView
+        android:id="@+id/organizationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/brazilBottom"
+        android:layout_centerHorizontal="true"
+        android:textSize="17dp"
+        android:text="Crash Development" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/organizationName"
+        android:layout_centerHorizontal="true"
+        android:textSize="17dp"
+        android:text="V 1.0" />
+
+    <ImageView
+        android:id="@+id/logoCopa"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:layout_alignLeft="@+id/brazilBottom"
+        android:src="@drawable/logo_brazil" />
+
+</RelativeLayout>
