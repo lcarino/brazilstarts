@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class AlbumFullImagePagerFragment extends Fragment{
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
-    private Bundle bundle;
+    public static Bundle bundle;
     private Context mContext;
     private View rootView;
 
@@ -65,37 +66,31 @@ public class AlbumFullImagePagerFragment extends Fragment{
 		return rootView;
 	}
 
-//    public void onBackPressed() {
-//        if (mPager.getCurrentItem() == 0) {
-//            // If the user is currently looking at the first step, allow the system to handle the
-//            // Back button. This calls finish() on this activity and pops the back stack.
-//            super.onBackPressed();
-//        } else {
-//            // Otherwise, select the previous step.
-//            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-//        }
-//    }
 
     /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
+     * Page adapter que permite visualizar las imagenes en tamaño mas grande
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
+        
         @Override
-        public Fragment getItem(int position) {
-        	AlbumFullImageFragment afif = new AlbumFullImageFragment();
-        	afif.setArguments(bundle);
-            return afif;
+        public Fragment getItem(int position) { //devuelve de la imagen en tamaño completo
+        	Log.d("LOGEEER***",String.valueOf(bundle.getInt("selected_item")));
+        	
+        	return AlbumFullImageFragment.newInstance(position);
+//        	afif.setArguments(bundle);
+//            return afif;
         }
 
         @Override
-        public int getCount() {
+        public int getCount() { //numero de fragments a mostrar
             return NUM_PAGES;
         }
+        
+        
     }
 }
 	

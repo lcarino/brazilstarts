@@ -79,7 +79,6 @@ public class MainActivity extends ActionBarActivity implements
 			b.putSerializable("albumOpened", albumOpened);
 			albumFrag.setArguments(b);
 			fm.beginTransaction().replace(R.id.container, albumFrag).commit();
-			fm.beginTransaction().replace(R.id.container, new AlbumFragment()).commit();
 		}else if(position==1){
 			
 			FragmentManager fm = getSupportFragmentManager();

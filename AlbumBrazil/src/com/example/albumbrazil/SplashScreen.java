@@ -24,7 +24,9 @@ public class SplashScreen extends Activity implements AnimationListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().hide();
 		setContentView(R.layout.splash_screen);
+		
 
 	}
 

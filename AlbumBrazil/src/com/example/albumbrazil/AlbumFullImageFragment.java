@@ -23,7 +23,12 @@ public class AlbumFullImageFragment extends Fragment{
 	private int itemNumber;
 	private int mNum;
 	
-	
+	/**
+	 * Crea una nueva instancia del fragment para la imagen completa, y se le pasa como argumento
+	 * el numero de imagen seleccionado
+	 * @param num
+	 * @return
+	 */
 	static AlbumFullImageFragment newInstance(int num){
 		AlbumFullImageFragment f = new AlbumFullImageFragment();
 		Bundle arg = new Bundle();
@@ -48,7 +53,8 @@ public class AlbumFullImageFragment extends Fragment{
 		myIV = (ImageView)rootView.findViewById(R.id.imageView2);
 		
 		
-		int si = args.getInt("selected_item")+1;
+		int si = args.getInt("num")+1;
+		//int si = 
 		//Toast.makeText(mContext, Integer.toString(si), Toast.LENGTH_SHORT).show();
 		imageName = new StringBuilder("e"+Integer.toString(si));
 		String PACKAGE_NAME = mContext.getPackageName();
