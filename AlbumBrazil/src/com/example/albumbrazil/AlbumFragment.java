@@ -28,7 +28,7 @@ public class AlbumFragment extends Fragment {
 	private View rootView;
 	private Context mContext;
 	private Bundle bundle;
-	private Bundle myBundle;
+	private Usuario usuario;
 	public Album albumOp;
 
 	
@@ -37,9 +37,9 @@ public class AlbumFragment extends Fragment {
 		// TODO Auto-generated method stub
 		
 		mContext = getActivity().getApplicationContext();
-		myBundle =  getArguments();
-		Log.d("DEBUG EN ALBUM FRAGMENT",myBundle.toString());
-		//Toast.makeText(mContext, albumOp.toString(), Toast.LENGTH_LONG).show();
+		//myBundle =  getArguments();
+		usuario = new Usuario(mContext);
+		
 		super.onCreate(savedInstanceState);
 	}
 
@@ -49,9 +49,10 @@ public class AlbumFragment extends Fragment {
 		// TODO Auto-generated method stub
 		rootView = inflater.inflate(R.layout.fragment_album, container,false);
 		
-		//recupera el album del bundle
-		Album albumOpened = (Album)myBundle.getSerializable("albumOpened");
-		
+		//leemos el album desde el archivo
+		Album albumOpened = usuario.abrirAlbum();
+		Log.d("DEBUG ALBUM FRAGMENT",albumOpened.toString());
+		Log.d("DEBUG ALBUM FRAGMENT",String.valueOf(albumOpened.getMisEstampas().size()));
 		
 		GridView gv = (GridView) rootView.findViewById(R.id.gridView);
 		gv.setAdapter(new ImageAdapter(mContext,getActivity().getResources(),albumOpened));
@@ -63,9 +64,6 @@ public class AlbumFragment extends Fragment {
 	            bundle = new Bundle();
 	            bundle.putInt("selected_item", position);
 	            AlbumFullImagePagerFragment aff = new AlbumFullImagePagerFragment();
-//	            AlbumFullImagePagerFragment aff = new AlbumFullImagePagerFragment();
-//	            Intent i = new Intent(getActivity(), AlbumFullImagePagerFragment.class);
-//	            getActivity().startActivity(i);
 	            aff.setArguments(bundle);
 	            FragmentManager fm = getActivity().getSupportFragmentManager();
 	           
@@ -76,24 +74,26 @@ public class AlbumFragment extends Fragment {
 
 		});
 		
-//		Album a = null;
-//		
-//		Usuario u = new Usuario(mContext);
-//		//u.guardarAlbum();
-//	
-//			a = u.abrirAlbum();
-//			
-//		
-//		
-//		ArrayList<Integer> al = a.getMisEstampas();
-//
-//		Toast.makeText(mContext, "**"+al.size(), Toast.LENGTH_LONG).show();
-//		
+	
 		return rootView;
 	}
 	
 	public void setAlbum(Album a){
 		albumOp = a;
+	}
+
+	@Override
+	public void onDestroy() { //ACA SE GUARDAN LA MODIFICACIONES HECHAS AL ALBUM
+		// TODO Auto-generated method stub
+		Log.d("DEBUG ALBUM","ON DESTROY");
+		super.onDestroy();
+	}
+
+	@Override
+	public void onDestroyView() {
+		// TODO Auto-generated method stub
+		Log.d("DEBUG ALBUM","ON DESTROY VIEW");
+		super.onDestroyView();
 	}
 	
 	

@@ -63,35 +63,22 @@ public class MainActivity extends ActionBarActivity implements
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		
-		//abrimos el archivo
-				usuario = new Usuario(getApplicationContext());
-				albumOpened = usuario.abrirAlbum();  
-				Log.d("DEBUG",albumOpened.toString());
-				Log.d("DEBUG",String.valueOf(albumOpened.getMisEstampas().size()));
-				
-		
-		// update the main content by replacing fragments
-		if(position == 0){
-			FragmentManager fm = getSupportFragmentManager();
-			//se crea la instacia del fragment y se agrega el bundle
-			AlbumFragment albumFrag = new AlbumFragment();
-			b  = new Bundle();
-			b.putSerializable("albumOpened", albumOpened);
-			albumFrag.setArguments(b);
-			fm.beginTransaction().replace(R.id.container, albumFrag).commit();
-		}else if(position==1){
-			
-			FragmentManager fm = getSupportFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
+		switch (position) {
+		case 0: //album
+			fm.beginTransaction().replace(R.id.container, new AlbumFragment()).commit();
+			break;
+		case 1: //sobre
 			fm.beginTransaction().replace(R.id.container, new CompraSobreFragment()).commit();
-		
-		}else{
-			
-			FragmentManager fragmentManager = getSupportFragmentManager();
-			fragmentManager
-					.beginTransaction()
-					.replace(R.id.container,
-							PlaceholderFragment.newInstance(position + 1)).commit();	
-			
+			break;
+		case 2:
+			fm.beginTransaction().replace(R.id.container,PlaceholderFragment.newInstance(position + 1)).commit();	
+			break;
+		case 3:
+			fm.beginTransaction().replace(R.id.container,new AvanceFragment()).commit();	
+			break;
+		default:
+			break;
 		}
 	}
 

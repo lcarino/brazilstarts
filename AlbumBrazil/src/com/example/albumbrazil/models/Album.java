@@ -18,6 +18,10 @@ public class Album implements Serializable {
 				add(15);
 				add(30);
 				add(31);
+				add(9);
+				add(16);
+				add(20);
+				add(24);
 				}};
 	private HashMap<Integer, Integer> repetidas; //id,numero de veces repetida con put lo actualizas put(id, get(id)+1)
 	public static HashMap<Integer, String> catalogo = new HashMap<Integer, String>(){{
