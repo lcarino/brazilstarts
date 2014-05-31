@@ -72,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements
 			fm.beginTransaction().replace(R.id.container, new CompraSobreFragment()).commit();
 			break;
 		case 2:
-			fm.beginTransaction().replace(R.id.container,PlaceholderFragment.newInstance(position + 1)).commit();	
+			fm.beginTransaction().replace(R.id.container,new IntercambioFragment()).commit();	
 			break;
 		case 3:
 			fm.beginTransaction().replace(R.id.container,new AvanceFragment()).commit();	

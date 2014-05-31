@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,7 +44,9 @@ public class CompraSobreFragment extends Fragment implements OnClickListener,Ani
 	private Context mContext;
 	private Bundle bundle;
 	private TextView textView;
+	private List<String> sobre;
 	Animation animFadein;
+	SharedPreferences preferences;
 
 
 	@Override
@@ -50,6 +54,12 @@ public class CompraSobreFragment extends Fragment implements OnClickListener,Ani
 		
 		bundle = new Bundle();
 		mContext = getActivity().getApplicationContext();
+		preferences = getActivity().getSharedPreferences("preferencesFile", 0);
+		if(preferences.getBoolean("inicializacion", true)){
+			preferences.edit().putInt("numSobres", 10).commit();
+			preferences.edit().putBoolean("inicializacion", false).commit();
+		}
+		
 		super.onCreate(savedInstanceState);
 		
 	}
@@ -65,8 +75,8 @@ public class CompraSobreFragment extends Fragment implements OnClickListener,Ani
 		
 		ImageView img = (ImageView) rootView.findViewById(R.id.sobres);
 		
-		
-		
+		TextView textView = (TextView) rootView.findViewById(R.id.numeroSobres);
+		textView.setText(Integer.toString(preferences.getInt("numSobres", 10))+"/10");
 		img.setOnClickListener(this);
 							
 		return rootView;
@@ -104,24 +114,56 @@ public class CompraSobreFragment extends Fragment implements OnClickListener,Ani
 		// Call after onPreExecute method
 		protected List<Integer> doInBackground(String... params) {
 
-			List<String> sobre = getSobre(params[0]);
+			sobre= getSobre(params[0]); //trae los ids de las estampas
 			Log.d("sobre JSON", sobre.toString());
-			Usuario usuario= new Usuario(mContext);
-			//usuario.guardarAlbum();
-			Album album;
-			album = usuario.abrirAlbum();
-			//HashMap<Integer, String> catalogo=album.getCatalogo();
-			for(String identificador : sobre)
+			
+			for(String identificador : sobre) //se regresa una lista de enteros con los identificadores de las imagene
 				compra.add(getResources().getIdentifier("e"+identificador, "drawable",
 						mContext.getPackageName()));
-			
-			
-			
+				
+				
 			return compra;
 
 		}
 
 		protected void onPostExecute(List<Integer> mImageIds) {
+			
+			
+			
+			
+			Log.d("sobre JSON", sobre.toString());
+			Usuario usuario= new Usuario(mContext);
+			Album album = usuario.abrirAlbum();
+			
+			ArrayList<Integer> misEstampas = album.getMisEstampas();
+			HashMap<Integer, Integer> misRepetidas = album.getRepetidas();
+			
+			
+			
+			//HashMap<Integer, String> catalogo=album.getCatalogo();
+			for(String identificador : sobre) //se regresa una lista de enteros con los identificadores de las imagene
+			{	
+				
+				//validacion para repetidas
+				if(misEstampas.contains(Integer.valueOf(identificador))){
+					
+						Integer value = misRepetidas.get(Integer.valueOf(identificador));
+						if(value==null){
+							misRepetidas.put(Integer.valueOf(identificador), 1);
+						}else{
+							misRepetidas.put(Integer.valueOf(identificador),value+1);
+						}
+						
+				}else{
+					misEstampas.add(Integer.valueOf(identificador));
+				}
+			}
+			
+			album.setRepetidas(misRepetidas);
+			album.setMisEstampas(misEstampas);
+			usuario.guardarAlbum(album);
+			
+			
 			
 			
 			compra=mImageIds;
@@ -288,8 +330,20 @@ public class CompraSobreFragment extends Fragment implements OnClickListener,Ani
 		animFadein = AnimationUtils.loadAnimation(mContext,
                 R.anim.zoom_out); 
 		
+		TextView textV = (TextView)rootView.findViewById(R.id.numeroSobres);
+		
+		if(preferences.getInt("numSobres", 10) < 1){
+			textV.setText("No puedes comprar mas sobres");
+			
+		}else{
+		
+		preferences.edit().putInt("numSobres", (preferences.getInt("numSobres", 10)-1)).commit();
+		textV.setText(Integer.toString(preferences.getInt("numSobres", 10))+"/10");
 		img.startAnimation(animFadein);
 		animFadein.setAnimationListener(this);
+		}
+		
+		
 
 		// TODO Auto-generated method stub
 		

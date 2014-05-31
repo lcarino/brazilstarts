@@ -35,6 +35,16 @@ public class AlbumFullImagePagerFragment extends Fragment{
     private Context mContext;
     private View rootView;
 
+    
+    static AlbumFullImagePagerFragment newInstance(int num){
+    	AlbumFullImagePagerFragment albumFIP = new AlbumFullImagePagerFragment();
+    	Bundle arg = new Bundle();
+    	arg.putInt("num",num);
+
+    	return albumFIP;
+    }
+    
+    
     @Override
 	public void onCreate(Bundle savedInstanceState) {
         
@@ -55,7 +65,7 @@ public class AlbumFullImagePagerFragment extends Fragment{
         mPager = (ViewPager) rootView.findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-		
+		mPager.setCurrentItem(bundle.getInt("selected_item"));
 		
 //		int si = args.getInt("selected_item")+1;
 //		//Toast.makeText(mContext, Integer.toString(si), Toast.LENGTH_LONG).show();

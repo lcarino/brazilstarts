@@ -24,21 +24,22 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public static Album album = new Album();
+	//public static Album album = new Album();
 	public static Context mContext;
 	
 	public Usuario(Context mContex){
 		mContext = mContex;
 	}
 	
-	public void guardarAlbum(){
+	public void guardarAlbum(Album album){
 		
 		
         try {
         	FileOutputStream fos = mContext.openFileOutput("albumguardado", mContext.MODE_PRIVATE); //Abre un archivo provado asociado con el contexto de la aplicacion. Si el archivo lo existe lo crea
         	ObjectOutputStream os = new ObjectOutputStream(fos);
         	os.writeObject(album);
-
+        	fos.close();
+        	os.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
         	Log.d("debug","Excepcion lanzada en el guardado del archivo");
@@ -46,24 +47,23 @@ public class Usuario implements Serializable {
         }
 
     }
-
 		
-	
 	/*
 	 * Abre el archivo asociado con la aplicacion y en caso de que no exista
 	 * lo crea.
 	 */
 	
 	public  Album abrirAlbum(){
+		Album album = null;
 		File file;
 		FileInputStream fis = null;
-		FileOutputStream fos;
+
 		try{
 			file = mContext.getFileStreamPath("albumguardado");
 			
 		if(!file.exists()){
 			Log.d("DEBUGER","El archivo no existe");
-			guardarAlbum();	
+			guardarAlbum(new Album());	
 		}
 		
 		fis  = mContext.openFileInput("albumguardado");
@@ -83,9 +83,6 @@ public class Usuario implements Serializable {
 	}
 	
 	
-	public Album getAlbum(){
-		return album;
-	}
 	
 	
 	

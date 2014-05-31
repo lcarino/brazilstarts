@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.albumbrazil.MainActivity">
+    <item android:id="@+id/enviar" 
+        android:showAsAction="always" 
+        android:icon="@drawable/ic_action_forward"
+        android:title="enviar"
+        app:showAsAction="always"></item>
+    
+    <item android:id="@+id/recibir" 
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_reply"
+        android:title="recibe"
+        app:showAsAction="always"></item>
+    
+
+</menu>

@@ -1,5 +1,7 @@
 package com.example.albumbrazil;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.albumbrazil.adapters.ImageAdapter;
+import com.example.albumbrazil.models.Album;
+import com.example.albumbrazil.models.Usuario;
 
 public class AlbumFullImageFragment extends Fragment{
 	
@@ -22,6 +26,8 @@ public class AlbumFullImageFragment extends Fragment{
 	StringBuilder imageName;
 	private int itemNumber;
 	private int mNum;
+	private Usuario usuario;
+	public Album albumOpened;
 	
 	/**
 	 * Crea una nueva instancia del fragment para la imagen completa, y se le pasa como argumento
@@ -42,6 +48,8 @@ public class AlbumFullImageFragment extends Fragment{
 		// TODO Auto-generated method stub
 		args = getArguments();
 		mContext = getActivity().getApplicationContext();
+		usuario = new Usuario(mContext);
+		albumOpened = usuario.abrirAlbum();
 		super.onCreate(savedInstanceState);
 	}
 
@@ -53,10 +61,19 @@ public class AlbumFullImageFragment extends Fragment{
 		myIV = (ImageView)rootView.findViewById(R.id.imageView2);
 		
 		
-		int si = args.getInt("num")+1;
+		//checamos las estampas que estan en el arraylist de estampas pegadas
+		ArrayList<Integer> estampasPegadas = albumOpened.getMisEstampas();
+		int resId;
+		if(!estampasPegadas.contains(args.getInt("num")+1)){
+			resId = 0;
+		}else{
+			resId=args.getInt("num")+1;
+		}
+		
+		//int si = args.getInt("num")+1;
 		//int si = 
 		//Toast.makeText(mContext, Integer.toString(si), Toast.LENGTH_SHORT).show();
-		imageName = new StringBuilder("e"+Integer.toString(si));
+		imageName = new StringBuilder("e"+Integer.toString(resId));
 		String PACKAGE_NAME = mContext.getPackageName();
 		int imgId = getActivity().getResources().getIdentifier(PACKAGE_NAME+":drawable/"+imageName.toString(), null, null);
 		myIV.setImageBitmap(BitmapFactory.decodeResource(getActivity().getResources(), imgId));

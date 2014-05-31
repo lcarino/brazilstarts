@@ -71,13 +71,13 @@ public class AvanceFragment extends Fragment {
         
         double enAlbum = (double)noEstampas;
         double faltantes = 50.0 - enAlbum;
-        double repetidas = 10.0;
+        //double repetidas = 10.0;
         // Pie Chart Section Values
-        double[] distribution = { enAlbum, faltantes, repetidas} ;
+        double[] distribution = { enAlbum, faltantes} ;
  
         // Color of each Pie Chart Sections
         int[] colors = { Color.BLUE, Color.RED,
-                        Color.YELLOW };
+                        };
  
         // Instantiating CategorySeries to plot Pie Chart
         CategorySeries distributionSeries = new CategorySeries(" Android version distribution as on October 1, 2012");
@@ -96,10 +96,11 @@ public class AvanceFragment extends Fragment {
             defaultRenderer.addSeriesRenderer(seriesRenderer);
         }
  
-        defaultRenderer.setChartTitle("Avance registrado en tu album estrellas 2014 ");
+        defaultRenderer.setChartTitle("Avance registrado en tu album brasil 2014 ");
         defaultRenderer.setChartTitleTextSize(30);
         defaultRenderer.setZoomButtonsVisible(true);
- 
+        defaultRenderer.setLabelsTextSize(30);
+        defaultRenderer.setLegendTextSize(30);
         // Creating an intent to plot bar chart using dataset and multipleRenderer
         //Intent intent = ChartFactory.getPieChartIntent(getActivity().getBaseContext(), distributionSeries , defaultRenderer, "AChartEnginePieChartDemo");
         return ChartFactory.getPieChartView(getActivity().getBaseContext(), distributionSeries, defaultRenderer);

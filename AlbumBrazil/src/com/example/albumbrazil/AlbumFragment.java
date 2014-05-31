@@ -83,14 +83,14 @@ public class AlbumFragment extends Fragment {
 	}
 
 	@Override
-	public void onDestroy() { //ACA SE GUARDAN LA MODIFICACIONES HECHAS AL ALBUM
+	public void onDestroy() { 
 		// TODO Auto-generated method stub
 		Log.d("DEBUG ALBUM","ON DESTROY");
 		super.onDestroy();
 	}
 
 	@Override
-	public void onDestroyView() {
+	public void onDestroyView() { //ACA SE GUARDAN LA MODIFICACIONES HECHAS AL ALBUM
 		// TODO Auto-generated method stub
 		Log.d("DEBUG ALBUM","ON DESTROY VIEW");
 		super.onDestroyView();

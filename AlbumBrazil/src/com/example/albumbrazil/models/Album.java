@@ -10,20 +10,11 @@ public class Album implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Estampa> estampasPegadas;
-	private ArrayList<Integer> misEstampas = new ArrayList<Integer>(){{ 
-				add(1);
-				add(2);
-				add(5);
-				add(15);
-				add(30);
-				add(31);
-				add(9);
-				add(16);
-				add(20);
-				add(24);
-				}};
-	private HashMap<Integer, Integer> repetidas; //id,numero de veces repetida con put lo actualizas put(id, get(id)+1)
+	private ArrayList<Integer> misEstampas = new ArrayList<Integer>();
+	
+	private Integer sobresDisponibles = 10;
+
+	private HashMap<Integer, Integer> repetidas = new HashMap<Integer, Integer>(); //id,numero de veces repetida con put lo actualizas put(id, get(id)+1)
 	public static HashMap<Integer, String> catalogo = new HashMap<Integer, String>(){{
 		put(1,"Casillas");
 		put(2,"Schweinsteiger");
@@ -77,14 +68,7 @@ public class Album implements Serializable {
 		put(50, "Luiz");
 	}};
 	
-	
-	
-	public ArrayList<Estampa> getEstampas() {
-		return estampasPegadas;
-	}
-	public void setEstampas(ArrayList<Estampa> estampas) {
-		estampasPegadas = estampas;
-	}
+
 	public HashMap<Integer, Integer> getRepetidas() {
 		return repetidas;
 	}
@@ -94,17 +78,20 @@ public class Album implements Serializable {
 	public static HashMap<Integer, String> getCatalogo() {
 		return catalogo;
 	}
-	
-	public void shit(String s){
-		System.out.println(s);
-	}
-	
-	
+		
 	public ArrayList<Integer> getMisEstampas(){
 		return misEstampas;
 	}
 	
-
+	public void setMisEstampas(ArrayList<Integer> misEstampas) {
+		this.misEstampas = misEstampas;
+	}
+	public Integer getSobresDisponibles() {
+		return sobresDisponibles;
+	}
+	public void setSobresDisponibles(Integer sobresDisponibles) {
+		this.sobresDisponibles = sobresDisponibles;
+	}
 	
 
 }
